@@ -1,0 +1,61 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="400"
+             x:Class="footballHero.Views.LoginPage">
+    <Grid Background="Beige">
+    <Grid Height="250" VerticalAlignment="Top">
+        <Image Source="avares://footballHero/Assets/TeamHuddleGoldenFilter.PNG" Stretch="UniformToFill" Height="">
+            <Image.Clip>
+                <PathGeometry Figures="M 0,0 L 250,0 L 250,180 Q 180,240 0,190 Z"/>
+            </Image.Clip>
+        </Image>
+        <Border>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0%,70%" EndPoint="0%,100%">
+                    <GradientStop Offset="0.0" Color="#00E5CB90" /> <GradientStop Offset="1.0" Color="Beige" /> </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+    </Grid>
+        <StackPanel Margin="0,230,0,0" Spacing="15">
+        
+            <TextBlock Text="SIGN IN" 
+                       Margin="5,5,0,0"
+                       Foreground="#164480" 
+                       HorizontalAlignment="Center" 
+                       FontSize="14" 
+                       FontFamily="avares://footballHero/Assets/Fonts/#Bevan"/>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBox PlaceholderText="👤  Enter your username here!"
+                         HorizontalContentAlignment="Left"
+                         Width="200" 
+                         Height="20"
+                         MinHeight="20"
+                         CornerRadius="6"
+                         FontSize="8"
+                         VerticalContentAlignment="Center"
+                         Padding="6,0,6,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>            
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBox Width="200" 
+                         PlaceholderText="🔒  Enter your password! "
+                         PasswordChar="*"
+                         Height="20"
+                         MinHeight="20"
+                         CornerRadius="6"
+                         FontSize="8"
+                         VerticalContentAlignment="Center"
+                         Padding="6,0,6,0" VerticalAlignment="Top"
+                         HorizontalAlignment="Right"/>            
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Background="#164480" Foreground="Beige" FontFamily="avares://footballHero/Assets/Fonts/#Bevan" FontSize="12"> Log in!</Button>
+                
+            </StackPanel>
+        </StackPanel>
+        
+        </Grid>
+    
+</UserControl>

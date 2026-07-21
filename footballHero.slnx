@@ -1,0 +1,11 @@
+﻿<Solution>
+  <Project Path="footballHero.Android/footballHero.Android.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="footballHero.Browser/footballHero.Browser.csproj" />
+  <Project Path="footballHero.Desktop/footballHero.Desktop.csproj" />
+  <Project Path="footballHero.iOS/footballHero.iOS.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="footballHero/footballHero.csproj" />
+</Solution>
