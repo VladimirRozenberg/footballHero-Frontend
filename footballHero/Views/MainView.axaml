@@ -99,6 +99,12 @@
                        HorizontalAlignment="Center"
                        Classes="link">
             </TextBlock>
+            
+            <TextBox Classes="status"
+                     Name="ResponseBox">
+            </TextBox>
+            
+            <Button Content="Connect to Backend" Click="ConnectButton_Click" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 </UserControl>
