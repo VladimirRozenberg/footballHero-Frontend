@@ -20,23 +20,25 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            // 1. Give MainWindow the MainViewModel (The Router)
+            // 2. DO NOT set the Content here! Let the XAML ContentControl do its job.
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel(),
-                // This line guarantees your login screen (MainView) is the main event!
-                Content = new MainView { DataContext = new MainViewModel() }
+                DataContext = new MainViewModel()
             };
         }
         else if (ApplicationLifetime is IActivityApplicationLifetime singleViewFactoryApplicationLifetime)
         {
+            // For mobile/browser
             singleViewFactoryApplicationLifetime.MainViewFactory =
-                () => new MainView { DataContext = new MainViewModel() };
+                () => new MainView() { DataContext = new MainViewModel() };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
+            // For mobile/browser
+            singleViewPlatform.MainView = new MainView()
             {
-                DataContext = new MainViewModel()
+                DataContext = new MainViewModel(),
             };
         }
 

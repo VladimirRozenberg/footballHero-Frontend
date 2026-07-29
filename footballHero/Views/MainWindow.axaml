@@ -6,7 +6,11 @@
         xmlns:views="using:footballHero.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="footballHero.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="footballHero">
-        <views:MainView />
+
+    <views:MainView />
+
+
 </Window>

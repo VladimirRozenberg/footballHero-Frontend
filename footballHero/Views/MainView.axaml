@@ -1,110 +1,25 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:footballHero.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="890"
-             x:Class="footballHero.Views.MainView">
-    
-    <UserControl.Styles>
-        <Style Selector="TextBox.MobileInput">
-            <Setter Property="Height" Value="32" />
-            <Setter Property="CornerRadius" Value="20" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="PlaceholderForeground" Value="#536bac"></Setter>
-            <Setter Property="Foreground" Value="RoyalBlue"></Setter>
-            <Setter Property="Padding" Value="12,0" /> <!-- More breathing room on left/right of text -->
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="Width" Value="310"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Transitions">
-                <Transitions>
-                    <BrushTransition Property="Background" Duration="0:0:0.15" />
-                </Transitions>
-            </Setter>
-        </Style>
-            
-        <Style Selector="TextBlock.link">
-           <Setter Property="FontSize" Value="16"/>
-            <Setter Property="TextDecorations" Value="Underline"/>
-           <Setter Property="Foreground" Value="#164480"/>
-        </Style>
-        
-        <Style Selector="Button.buttons">
-            <Setter Property="Background" Value="#164480"/>
-            <Setter Property="Foreground" Value="Beige"/> 
-            <Setter Property="FontFamily" Value="avares://footballHero/Assets/Fonts/#Bevan"/> 
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Width" Value="70" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-        </Style>
-    </UserControl.Styles>
-    
-    <Grid Background="Beige">
-        <Grid Height="480" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <Image Source="avares://footballHero/Assets/TeamHuddleGoldenFilter.PNG" 
-                   Stretch="UniformToFill"
-                   HorizontalAlignment="Center">
-            </Image>
-            <Border>
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0%,35%" EndPoint="0%,60%">
-                        <GradientStop Offset="0.0" Color="#00E5CB90" /> 
-                        <GradientStop Offset="1.0" Color="Beige" /> 
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-        </Grid>
+             xmlns:views="using:footballHero.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="footballHero.Views.MainView"
+             x:DataType="vm:MainViewModel">
 
-        <StackPanel Margin="0,350,0,0" Spacing="15">
-            <TextBlock Text="Create your Legacy today" 
-                       Margin="5,5,0,0"
-                       Foreground="#164480" 
-                       HorizontalAlignment="Center" 
-                       FontSize="22" 
-                       FontFamily="avares://footballHero/Assets/Fonts/#Bevan"/>
-            
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBox PlaceholderText="Enter your Username!"
-                         Classes="MobileInput">
-                    <TextBox.InnerLeftContent>
-                        <TextBlock Text="👤" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16"></TextBlock>
-                    </TextBox.InnerLeftContent>
-                </TextBox>            
-            </StackPanel>
-            
-            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBox PlaceholderText="Enter your Password!"
-                         PasswordChar="*"
-                         Classes="MobileInput">
-                    <TextBox.InnerLeftContent ><TextBlock Text="🔒" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16"
-                                                        ></TextBlock>
-                     
-                    </TextBox.InnerLeftContent>
-                </TextBox>            
-            </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Classes="buttons"
-                        Width="200"
-                        Margin="0,0, 10 , 0">Sign Up</Button>
-                <Button Classes="buttons" 
-                        Width="100"
-                        Background="DarkGray"
-                        >Log In</Button>
-            </StackPanel>
-            <TextBlock Text="Forgot Password" 
-                       HorizontalAlignment="Center"
-                       Classes="link">
-            </TextBlock>
-            
-            <TextBox Classes="status"
-                     Name="ResponseBox">
-            </TextBox>
-            
-            <Button Content="Connect to Backend" Click="ConnectButton_Click" HorizontalAlignment="Center"/>
-        </StackPanel>
-    </Grid>
+    <!-- 1. The Translator: Tells Avalonia which View matches which ViewModel -->
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="{x:Type vm:LoginPageViewModel}">
+            <views:LoginPage />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:MainMenuViewModel}">
+            <views:MainMenu />
+        </DataTemplate>
+    </UserControl.DataTemplates>
+
+    <!-- 2. The Picture Frame: Automatically displays whatever CurrentPage is set to -->
+    <ContentControl Content="{Binding CurrentPage}" />
+
 </UserControl>
