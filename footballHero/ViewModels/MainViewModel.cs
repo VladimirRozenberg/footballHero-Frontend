@@ -8,9 +8,12 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty] public partial string Greeting { get; set; } = "Welcome to Avalonia!";
     
     [ObservableProperty] private object _currentPage;
-
-    public MainViewModel()
+    
+    public NavigationService Nav => AppServices.Navigation;
+    
+     public MainViewModel()
     {
+        Nav.NavigateTo(new LoginPageViewModel());
         _ = InitializeAsync();
     }
     
@@ -23,28 +26,12 @@ public partial class MainViewModel : ViewModelBase
             bool isVerified = await TokenVerification.VerifyToken();
             if (isVerified)
             {
-                GoToMainMenu();
+                Nav.NavigateTo(new MainMenuViewModel());
                 return;
             }
         }
 
-        GotoLogin();
+        Nav.NavigateTo(new LoginPageViewModel());
     }
     
-    
-    
-    
-    private void GotoLogin()
-    {
-        var loginViewModel = new LoginPageViewModel();
-        loginViewModel.OnLoginSuccess = GoToMainMenu;
-        CurrentPage = loginViewModel;
-    }
-    
-    private void GoToMainMenu()
-    {
-        var mainViewModel= new MainMenuViewModel();
-        mainViewModel.OnReturn = GotoLogin;
-        CurrentPage = mainViewModel; 
-    }
 }

@@ -5,7 +5,7 @@
              xmlns:vm="using:footballHero.ViewModels"
              x:DataType="vm:LoginPageViewModel"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="890"
-             x:Class="footballHero.Views.LoginPage">
+             x:Class="footballHero.Views.LoginPageView">
     
     <UserControl.Styles>
         <Style Selector="TextBox.MobileInput">

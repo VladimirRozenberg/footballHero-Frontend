@@ -1,4 +1,4 @@
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
@@ -6,16 +6,13 @@ using System;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
-using footballHero.ViewModels;
 
 namespace footballHero.Views;
 
-public partial class LoginPage : UserControl
+public partial class MainMenuView : UserControl
 {
-    public LoginPage()
+    public MainMenuView()
     {
-        InitializeComponent(); // The source generator will handle this completely!
+        InitializeComponent();
     }
 }
-    
-   

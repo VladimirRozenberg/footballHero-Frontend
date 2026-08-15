@@ -11,15 +11,15 @@
     <!-- 1. The Translator: Tells Avalonia which View matches which ViewModel -->
     <UserControl.DataTemplates>
         <DataTemplate DataType="{x:Type vm:LoginPageViewModel}">
-            <views:LoginPage />
+            <views:LoginPageView />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:MainMenuViewModel}">
-            <views:MainMenu />
+            <views:MainMenuView />
         </DataTemplate>
     </UserControl.DataTemplates>
 
     <!-- 2. The Picture Frame: Automatically displays whatever CurrentPage is set to -->
-    <ContentControl Content="{Binding CurrentPage}" />
+    <ContentControl Content="{Binding Nav.CurrentPage}" />
 
 </UserControl>

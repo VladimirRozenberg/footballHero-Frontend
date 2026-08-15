@@ -5,7 +5,7 @@
              x:DataType="vm:MainMenuViewModel"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="890"
-             x:Class="footballHero.Views.MainMenu">
+             x:Class="footballHero.Views.MainMenuView">
         
     <UserControl.Styles>
         <Style Selector="TextBlock.Title">
@@ -31,16 +31,48 @@
             <Setter Property="FontSize" Value="23"></Setter>
         </Style>
         
+        <Style Selector="StackPanel.PopupCard">
+                    <Setter Property="Background" Value="#164480"/>
+                    <Setter Property="Spacing" Value="12"/>
+                    <Setter Property="Width" Value="260"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+        
     </UserControl.Styles>
     
     <Grid Background="Beige">
         <StackPanel VerticalAlignment="Center">    
         <TextBlock Classes="Title" Text="{Binding WelcomeMessage}"/>
             
-            <Button Classes="Menu" Content="New Game"></Button>
-            <Button Classes="Menu" Content="Load Game"></Button>
+            <Button Classes="Menu" Content="New Game">
+                <Button.Flyout>
+                     <Flyout>
+                        <StackPanel Classes="PopupCard">
+                            <TextBlock Text="Name your team:" 
+                                       Foreground="White" 
+                                       FontWeight="SemiBold"/>
+                            
+                            <TextBox PlaceholderText="Team Name" 
+                                     Text="{Binding TeamName}"/>
+                            
+                    <Button Content="Confirm your Choice" 
+                            Command="{Binding CreateTeamCommand}"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"/> 
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+            <Button Classes="Menu" Content="Load Game" Command="{Binding GotoLoadPageCommand}"></Button>
             <Button Classes="Menu" Content="Log Out" Command="{Binding LogOutCommand}"></Button>
+        <TextBox
+            Text="{Binding ResponseBox}">
+        </TextBox>
+        
         </StackPanel>
+        
+  
     </Grid>
     
 </UserControl>

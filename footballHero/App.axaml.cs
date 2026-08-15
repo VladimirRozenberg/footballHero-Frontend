@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using footballHero.ViewModels;
 using footballHero.Views;
+using footballHero.Services;
 
 namespace footballHero;
 
@@ -43,5 +44,10 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+    
+    public static class AppServices
+    {
+        public static NavigationService Navigation {  get; }  = new NavigationService();
     }
 }

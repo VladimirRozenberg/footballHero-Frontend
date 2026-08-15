@@ -30,6 +30,7 @@ public class TokenVerification
                     };
                 
                     Session.Instance.SetSession(loggedInUser);
+                    Console.WriteLine($"Token Connected");
                     return true;
                 }
             }

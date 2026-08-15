@@ -4,8 +4,9 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.IO;
+using footballHero.ViewModels;
 using static System.Environment; 
-
+using System.Text.Json;
 
 
 namespace footballHero.Services
@@ -65,15 +66,76 @@ namespace footballHero.Services
                 {
                     Console.WriteLine("401 Unauthorized — token expired or missing");
                     TokenStorage.DeleteToken(); // optional: force re-login
+                    AppServices.Navigation.NavigateTo(new LoginPageViewModel());
+                    return default;
                 }
 
-                Console.WriteLine($"Response: {response}");
-                return default;
+                Console.WriteLine($"Response: {response}"); 
+                throw new Exception();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return default;
+                throw;
+            }
+        }
+
+        public async Task<TResponse> SecurePostAsync<TRequest, TResponse>(string url, TRequest data)
+        {
+            try
+            {   
+                var token = TokenStorage.LoadToken();
+                using var request = new HttpRequestMessage(HttpMethod.Post, url);
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
+
+                if (data != null)
+                {
+                    request.Content = JsonContent.Create(data);
+                }
+                
+                HttpResponseMessage response = await _httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<TResponse>();
+                }
+                
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    Console.WriteLine("401 Unauthorized — token expired or missing");
+                    TokenStorage.DeleteToken(); 
+                    AppServices.Navigation.NavigateTo(new LoginPageViewModel());
+                    return default;
+                }
+                
+                Console.WriteLine($"Response Error Status: {response.StatusCode}");
+                string errorBody = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Response Error Body: {errorBody}");
+                try
+                {
+                    using var json = JsonDocument.Parse(errorBody);
+
+                    if (json.RootElement.TryGetProperty("detail", out var detail))
+                    {
+                        throw new Exception(detail.GetString());
+                    }
+                }
+                catch (JsonException)
+                {
+                    throw new Exception(errorBody);
+                }
+
+                throw new Exception(errorBody);
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
 

@@ -15,7 +15,6 @@ public partial class LoginPageViewModel : ViewModelBase
     [ObservableProperty] private string? passwordBox;
     [ObservableProperty] private string? usernameBox;
     
-    public Action OnLoginSuccess { get; set; }
     
     
     [RelayCommand]
@@ -98,8 +97,7 @@ public partial class LoginPageViewModel : ViewModelBase
                 Console.WriteLine($"TEST PASSED: Token is valid. Session hydrated for: {sessionName}");
                 ResponseBox += $"\nTest Passed! Welcome to the session, {sessionName}";
                 await Task.Delay(2000);
-                OnLoginSuccess?.Invoke();
-                
+                AppServices.Navigation.NavigateTo(new MainMenuViewModel());                
                 
             }
             else
@@ -151,8 +149,7 @@ public partial class LoginPageViewModel : ViewModelBase
                     Console.WriteLine($"TEST PASSED: Token is valid. Session hydrated for: {sessionName}");
                     ResponseBox += $"\nTest Passed! Welcome to the session, {sessionName}";
                     await Task.Delay(2000);
-                    OnLoginSuccess?.Invoke();
-
+                    AppServices.Navigation.NavigateTo(new MainMenuViewModel());
                     
                 }
 

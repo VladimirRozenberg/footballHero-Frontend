@@ -1,0 +1,39 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:footballHero.ViewModels"
+             x:DataType="vm:LoadPageViewModel"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="890"
+             x:Class="footballHero.Views.LoadPageView">
+    
+    <UserControl.Styles>
+    </UserControl.Styles>
+    
+    <Grid Background="Beige">
+        <Button HorizontalAlignment="Left" Content="⬅️" Command="{Binding ReturnCommand}"></Button>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TableView Height="200"
+                       Width="300"
+                       CanUserResizeColumns="False"
+                       ItemsSource="{Binding Saves}"
+                       SelectedItem="{Binding SelectedSave}"> 
+                <TableView.Columns>
+                    <!-- 2. Added x:DataType to columns so they look inside the row object, not the main ViewModel -->
+                    <!-- (Make sure the xmlns:models path matches where LoadSavesResponse lives!) -->
+                    <TableViewColumn Header="Save ID" Binding="{Binding SaveId}" Width="0"></TableViewColumn>
+                    <TableViewColumn Header="Match Day" Binding="{Binding CurrentMatchDay}"></TableViewColumn>
+                    <TableViewColumn Header="Club Name" Binding="{Binding ClubName}"></TableViewColumn>
+                    <TableViewColumn Header="Budget" Binding="{Binding TransferBudget}"></TableViewColumn>
+                    <TableViewColumn Header="Club ID" Binding="{Binding ClubId}" Width="0"></TableViewColumn>
+
+                </TableView.Columns>
+                
+            </TableView>
+            
+            
+            <TextBox Text="{Binding ResponseBox}"></TextBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

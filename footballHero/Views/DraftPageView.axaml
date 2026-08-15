@@ -1,0 +1,290 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="890"
+             xmlns:vm="using:footballHero.ViewModels"
+             x:DataType="vm:DraftPageViewModel"
+             x:Class="footballHero.Views.DraftPageView">
+            <UserControl.Styles>
+                <Style Selector="Grid.ShirtGrid">
+                    <Setter Property="Height" Value="65"></Setter>
+                    <Setter Property="Width" Value="65"></Setter>
+                </Style>
+                <Style Selector="Path.ShirtPath">
+                    <Setter Property="Data" Value="M 60,10 C 65,22 85,22 90,10 L 115,22 C 122,25 135,32 145,40 L 130,65 C 122,58 116,52 110,48 L 110,140 L 40,140 L 40,48 C 34,52 28,58 20,65 L 5,40 C 15,32 28,25 35,22 Z"></Setter>
+                    <Setter Property="StrokeThickness" Value="1.5"></Setter>
+                    <Setter Property="Stretch" Value="Uniform"></Setter>
+                </Style>
+                <Style Selector="Path.OutfieldColor">
+                    <Setter Property="Fill" Value="Crimson"></Setter>
+                    <Setter Property="Stroke" Value="DarkRed"></Setter>
+                </Style>
+                
+                <Style Selector="Path.GKColor">
+                    <Setter Property="Fill" Value="RoyalBlue"></Setter>
+                    <Setter Property="Stroke" Value="DarkBlue"></Setter>
+                </Style>
+                <Style Selector="TextBlock.ShirtPosition">
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="ExtraBold"></Setter>
+                    <Setter Property="FontSize" Value="16"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="Margin" Value="0,5,0,0"></Setter>
+                </Style>
+                <Style Selector="TextBlock.PlayerName">
+                    <Setter Property="FontSize" Value="12"></Setter>
+                    <Setter Property="FontWeight" Value="DemiBold"></Setter>
+                </Style>
+                <Style Selector="TextBlock.PlayerStats">
+                    <Setter Property="FontSize" Value="10"></Setter>
+                    <Setter Property="FontWeight" Value="Regular"></Setter>
+                </Style>
+                <Style Selector="Button.DeletePlayer">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Content" Value="❌"></Setter>
+                </Style>
+                
+                <Style Selector="Button.ShirtButton">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+                <Style Selector="Button.ShirtButton:pressed /template/ ContentPresenter">
+                    <Setter Property="Opacity" Value="0.7"/>
+                </Style>
+                
+                
+            </UserControl.Styles>
+            <Grid Background="Beige" RowDefinitions="Auto,*,Auto">
+                <Button HorizontalAlignment="Left" Content="⬅️" Command ="{Binding ReturnCommand}"></Button>
+                <Border Grid.Row="0" 
+                        HorizontalAlignment="Center" 
+                        Background="#38c6a1" 
+                        CornerRadius="8" 
+                        ClipToBounds="True"
+                        Padding="10,5">
+                    <StackPanel Orientation="Vertical" Spacing="5">
+                        <TextBlock Text="{Binding ClubName, FallbackValue='Club Name', TargetNullValue='Club Name'}"
+                                   HorizontalAlignment="Center" 
+                                   FontWeight="Bold"/>
+        
+                        <StackPanel Orientation="Horizontal" Spacing="15">
+                            <TextBlock Text="{Binding OverallAttack, TargetNullValue='Attack: 0', FallbackValue='Attack:0'}"/>
+                            <TextBlock Text="{Binding OverallDefense, TargetNullValue='Defense: 0', FallbackValue='Defense: 0'}"/>
+                            <TextBlock Text="{Binding Budget, TargetNullValue='Budget: 0', FallbackValue='Budget: 0'}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Button Grid.Row="0" HorizontalAlignment="Right" Content="➡️" IsVisible="{Binding ContinueButtonVisible}"
+                        Command="{Binding CompleteDraftCommand}"></Button>
+
+                
+                
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            
+            
+            <Grid RowDefinitions="180,180,180,180"
+                  ColumnDefinitions="*,*,*"
+                  Margin="0,20,0,0">
+
+                <!-- Left Striker -->
+<!-- Position 1 (Left Striker) -->
+        <StackPanel Grid.Row="0" Grid.Column="0"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Spacing="8"
+                        Margin="20,0,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button Classes="ShirtButton"
+                            Command="{Binding SelectPlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P1" Role="ST" />
+                        </Button.CommandParameter>
+                        <Grid Classes="ShirtGrid">
+                            <Path Classes="ShirtPath OutfieldColor"/>
+                            <TextBlock Text="ST" Classes="ShirtPosition"/>
+                        </Grid>
+                    </Button>
+                    <Button Classes="DeletePlayer"
+                            Command="{Binding DeletePlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P1" Role="ST" />
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="6">
+                    <TextBlock Text="{Binding P1.Name, TargetNullValue='Empty Slot', FallbackValue='Empty Slot'}" Classes="PlayerName"/>
+                    <TextBlock Text="{Binding P1.AttackScore, StringFormat='atk: {0}', TargetNullValue='atk: 0', FallbackValue='atk: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P1.DefenseScore, StringFormat='def: {0}', TargetNullValue='def: 0', FallbackValue='def: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P1.DisplayValue, StringFormat='val: {0}', TargetNullValue='val: 0', FallbackValue='val: 0'}" Classes="PlayerStats"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Position 2 (Right Striker) -->
+            <StackPanel Grid.Row="0" Grid.Column="2"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Spacing="8"
+                        Margin="0,0,20,0">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button Classes="ShirtButton"
+                            Command="{Binding SelectPlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P2" Role="ST" />
+                        </Button.CommandParameter>
+                        <Grid Classes="ShirtGrid">
+                            <Path Classes="ShirtPath OutfieldColor"/>
+                            <TextBlock Text="ST" Classes="ShirtPosition"/>
+                        </Grid>
+                    </Button>
+                    <Button Classes="DeletePlayer"
+                            Command="{Binding DeletePlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P2" Role="ST" />
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="6">
+                    <TextBlock Text="{Binding P2.Name, TargetNullValue='Empty Slot', FallbackValue='Empty Slot'}" Classes="PlayerName"/>
+                    <TextBlock Text="{Binding P2.AttackScore, StringFormat='atk: {0}', TargetNullValue='atk: 0', FallbackValue='atk: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P2.DefenseScore, StringFormat='def: {0}', TargetNullValue='def: 0', FallbackValue='def: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P2.DisplayValue, StringFormat='val: {0}', TargetNullValue='val: 0', FallbackValue='val: 0'}" Classes="PlayerStats"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Position 3 (Centre Mid) -->
+            <StackPanel Grid.Row="1" Grid.Column="1"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Spacing="8"
+                        Margin="30,0,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button Classes="ShirtButton"
+                            Command="{Binding SelectPlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P3" Role="MID" />
+                        </Button.CommandParameter>
+                        <Grid Classes="ShirtGrid">
+                            <Path Classes="ShirtPath OutfieldColor"/>
+                            <TextBlock Text="CM" Classes="ShirtPosition"/>
+                        </Grid>
+                    </Button>
+                    <Button Classes="DeletePlayer"
+                            Command="{Binding DeletePlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P3" Role="MID" />
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="6">
+                    <TextBlock Text="{Binding P3.Name, TargetNullValue='Empty Slot', FallbackValue='Empty Slot'}" Classes="PlayerName"/>
+                    <TextBlock Text="{Binding P3.AttackScore, StringFormat='atk: {0}', TargetNullValue='atk: 0', FallbackValue='atk: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P3.DefenseScore, StringFormat='def: {0}', TargetNullValue='def: 0', FallbackValue='def: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P3.DisplayValue, StringFormat='val: {0}', TargetNullValue='val: 0', FallbackValue='val: 0'}" Classes="PlayerStats"/>
+                </StackPanel>
+                <Button
+                    x:Name ="Trigger"
+                    IsVisible="False"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    >
+                    <Button.Flyout>
+                        <Flyout Placement="Center" IsOpen="{Binding IsErrorOpen, Mode=TwoWay}">
+                            <StackPanel Spacing="8" Width="260" Margin="10">
+                                <TextBlock Text="Error" FontWeight="Bold" Foreground="DarkBlue"/>
+                                <TextBlock Text="{Binding ErrorMessage}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
+
+            <!-- Position 4 (Defender) -->
+            <StackPanel Grid.Row="2" Grid.Column="1"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Spacing="8"
+                        Margin="30,0,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button Classes="ShirtButton"
+                            Command="{Binding SelectPlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P4" Role="DEF" />
+                        </Button.CommandParameter>
+                        <Grid Classes="ShirtGrid">
+                            <Path Classes="ShirtPath OutfieldColor"/>
+                            <TextBlock Text="DEF" Classes="ShirtPosition"/>
+                        </Grid>
+                    </Button>
+                    <Button Classes="DeletePlayer"
+                            Command="{Binding DeletePlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P4" Role="DEF" />
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="6">
+                    <TextBlock Text="{Binding P4.Name, TargetNullValue='Empty Slot', FallbackValue='Empty Slot'}" Classes="PlayerName"/>
+                    <TextBlock Text="{Binding P4.AttackScore, StringFormat='atk: {0}', TargetNullValue='atk: 0', FallbackValue='atk: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P4.DefenseScore, StringFormat='def: {0}', TargetNullValue='def: 0', FallbackValue='def: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P4.DisplayValue, StringFormat='val: {0}', TargetNullValue='val: 0', FallbackValue='val: 0'}" Classes="PlayerStats"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Position 5 (Goalkeeper) -->
+            <StackPanel Grid.Row="3" Grid.Column="1"
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Spacing="8"
+                        Margin="30,0,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button Classes="ShirtButton"
+                            Command="{Binding SelectPlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P5" Role="GK" />
+                        </Button.CommandParameter>
+                        <Grid Classes="ShirtGrid">
+                            <Path Classes="ShirtPath GKColor"/>
+                            <TextBlock Text="GK" Classes="ShirtPosition"/>
+                        </Grid>
+                    </Button>
+                    <Button Classes="DeletePlayer"
+                            Command="{Binding DeletePlayerCommand}">
+                        <Button.CommandParameter>
+                            <vm:SlotInfo SlotId="P5" Role="GK" />
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="6">
+                    <TextBlock Text="{Binding P5.Name, TargetNullValue='Empty Slot', FallbackValue='Empty Slot'}" Classes="PlayerName"/>
+                    <TextBlock Text="{Binding P5.AttackScore, StringFormat='atk: {0}', TargetNullValue='atk: 0', FallbackValue='atk: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P5.DefenseScore, StringFormat='def: {0}', TargetNullValue='def: 0', FallbackValue='def: 0'}" Classes="PlayerStats"/>
+                    <TextBlock Text="{Binding P5.DisplayValue, StringFormat='val: {0}', TargetNullValue='val: 0', FallbackValue='val: 0'}" Classes="PlayerStats"/>
+                </StackPanel>
+            </StackPanel>
+
+    </Grid>
+</ScrollViewer>
+        <TableView Grid.Row="2"
+                   Height="220"
+                   CanUserResizeColumns="False"
+                   ItemsSource="{Binding CandidatePlayers}"
+                   SelectedItem="{Binding SelectedCandidate, Mode=TwoWay}">
+            <TableView.Columns>
+                <TableViewColumn Header="PlayerId" Width="0" Binding="{Binding PlayerId}"/>
+                <TableViewColumn Header="Player Name" Width="140" Binding="{Binding Name}"/>
+                <TableViewColumn Header="Status" Width="100" Binding="{Binding ActiveStatus}"/>
+                <TableViewColumn Header="Value" Width="80" Binding="{Binding Value}"/>
+                <TableViewColumn Header="ATK" Width="40" Binding="{Binding Attack}"/>
+                <TableViewColumn Header="DEF" Width="40" Binding="{Binding Defense}"/>
+            </TableView.Columns>
+        </TableView>
+    </Grid>
+</UserControl>
