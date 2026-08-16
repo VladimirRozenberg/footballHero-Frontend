@@ -3,12 +3,11 @@
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+        <ApplicationIcon>Assets\footballkick.ico</ApplicationIcon>
     </PropertyGroup>
-
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
     </ItemGroup>
-
     <ItemGroup>
         <PackageReference Include="Avalonia"/>
         <PackageReference Include="Avalonia.Themes.Fluent"/>

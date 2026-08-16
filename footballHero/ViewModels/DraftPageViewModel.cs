@@ -283,6 +283,10 @@ public partial class DraftPageViewModel : ViewModelBase
         draft.TransferBudget = result.Budget;
 
         ApplyGridToViewModel(result.Grid);
+        
+        await Task.Delay(600);
+        Session.Instance.ClearDraft();
+        AppServices.Navigation.NavigateTo(new LeaderboardPageViewModel());
     }
     
     private string _pendingSlotId = string.Empty;

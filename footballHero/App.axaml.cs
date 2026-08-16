@@ -27,6 +27,12 @@ public partial class App : Application
             {
                 DataContext = new MainViewModel()
             };
+            
+            desktop.MainWindow.Width = 420;
+            desktop.MainWindow.Height = 950;
+            desktop.MainWindow.MinWidth = 400;
+            desktop.MainWindow.MinHeight = 950;
+            
         }
         else if (ApplicationLifetime is IActivityApplicationLifetime singleViewFactoryApplicationLifetime)
         {

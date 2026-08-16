@@ -25,7 +25,7 @@ public partial class LoadPageViewModel : ViewModelBase
         if (value == null) return;
 
 
-    
+
         ResponseBox = $"Selected Club: {value.ClubName} (ID: {value.ClubId})";
         
         Session.Instance.SetDraft(new DraftSession

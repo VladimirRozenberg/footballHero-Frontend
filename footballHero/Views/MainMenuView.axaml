@@ -59,12 +59,14 @@
                     <Button Content="Confirm your Choice" 
                             Command="{Binding CreateTeamCommand}"
                             HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Center"/> 
+                            HorizontalContentAlignment="Center"
+                            Foreground="Azure"/> 
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
             </Button>
             <Button Classes="Menu" Content="Load Game" Command="{Binding GotoLoadPageCommand}"></Button>
+            <Button Classes="Menu" Content="Leaderboard" Command="{Binding GotoLeaderboardCommand}"></Button>
             <Button Classes="Menu" Content="Log Out" Command="{Binding LogOutCommand}"></Button>
         <TextBox
             Text="{Binding ResponseBox}">

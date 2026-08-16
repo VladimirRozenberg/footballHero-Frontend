@@ -20,16 +20,25 @@ public partial class MainMenuViewModel : ViewModelBase
     {
         Session.Instance.ClearSession();
         TokenStorage.DeleteToken();
-        await Task.Delay(500);
+        await Task.Delay(250);
         AppServices.Navigation.NavigateTo(new LoginPageViewModel());
         
     }
     [RelayCommand]
     private async Task GotoLoadPage()
     {
-        await Task.Delay(500);
+        await Task.Delay(250);
         AppServices.Navigation.NavigateTo(new LoadPageViewModel());
     }
+
+    [RelayCommand]
+    private async Task GotoLeaderboard()
+    {
+        await Task.Delay(250);
+        AppServices.Navigation.NavigateTo(new LeaderboardPageViewModel());
+    }
+    
+    
 
     public class TeamNameInsert
     {

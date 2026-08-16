@@ -1,0 +1,77 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:footballHero.ViewModels"
+             xmlns:conv="using:footballHero.Services"
+             x:DataType="vm:LeaderboardPageViewModel"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="890"
+             x:Class="footballHero.Views.LeaderboardPageView">
+
+    <UserControl.Resources>
+        <conv:BoolToHighlightConverter x:Key="BoolToHighlight"/>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="Button.BackButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="12"/>
+        </Style>
+        <Style Selector="TextBlock.PageTitle">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1a2e35"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Border.CardPanel">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="BoxShadow" Value="0 2 8 0 #22000000"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="Beige" RowDefinitions="Auto,*">
+
+        <Button Grid.Row="0"
+                Classes="BackButton"
+                HorizontalAlignment="Left"
+                Content="⬅️"
+                Command="{Binding ReturnCommand}"/>
+
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Spacing="20">
+
+            <TextBlock Text="Leaderboard" Classes="PageTitle"/>
+
+            <Border Classes="CardPanel">
+                <TableView Height="700"
+                           Width="350"
+                           CanUserResizeColumns="False"
+                           ItemsSource="{Binding Leaderboard}">
+                    <TableView.Styles>
+                        <Style Selector="TableViewRow"
+                               x:DataType="vm:LeaderboardPageViewModel+LeaderboardResponse">
+                            <Setter Property="Background"
+                                    Value="{Binding IsCurrentUser, Converter={StaticResource BoolToHighlight}}"/>
+                        </Style>
+                    </TableView.Styles>
+                    <TableView.Columns>
+                        <TableViewColumn Header="User ID" Binding="{Binding UserId}" Width="0"/>
+                        <TableViewColumn Header="Pos" Binding="{Binding Position}" Width="30" />
+                        <TableViewColumn Header="Club" Binding="{Binding ClubName}" Width="100" />
+                        <TableViewColumn Header="User" Binding="{Binding Username}" Width="100" />
+                        <TableViewColumn Header="Score" Binding="{Binding TotalScore}" Width="40" />
+                        <TableViewColumn Header="Atk" Binding="{Binding TotalAttack}" Width="40" />
+                        <TableViewColumn Header="Def" Binding="{Binding TotalDefense}" Width="40" />
+                    </TableView.Columns>
+                </TableView>
+            </Border>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

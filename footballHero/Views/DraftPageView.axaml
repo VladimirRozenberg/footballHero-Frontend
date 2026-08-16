@@ -57,7 +57,9 @@
                 
                 
             </UserControl.Styles>
-            <Grid Background="Beige" RowDefinitions="Auto,*,Auto">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Height="890" Width="400">
+                <Grid Background="Beige" RowDefinitions="Auto,*,Auto">
                 <Button HorizontalAlignment="Left" Content="⬅️" Command ="{Binding ReturnCommand}"></Button>
                 <Border Grid.Row="0" 
                         HorizontalAlignment="Center" 
@@ -287,4 +289,6 @@
             </TableView.Columns>
         </TableView>
     </Grid>
+                </Border>
+            </Grid>
 </UserControl>

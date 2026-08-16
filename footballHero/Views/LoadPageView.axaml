@@ -6,34 +6,75 @@
              x:DataType="vm:LoadPageViewModel"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="890"
              x:Class="footballHero.Views.LoadPageView">
-    
+
     <UserControl.Styles>
+        <Style Selector="Button.BackButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="12"/>
+        </Style>
+        <Style Selector="TextBlock.PageTitle">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1a2e35"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Border.CardPanel">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="BoxShadow" Value="0 2 8 0 #22000000"/>
+        </Style>
+        <Style Selector="Border.ResponseBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="BorderBrush" Value="#38c6a1"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+        </Style>
+        <Style Selector="TextBlock.ResponseText">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Foreground" Value="#1a2e35"/>
+        </Style>
     </UserControl.Styles>
-    
-    <Grid Background="Beige">
-        <Button HorizontalAlignment="Left" Content="⬅️" Command="{Binding ReturnCommand}"></Button>
 
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TableView Height="200"
-                       Width="300"
-                       CanUserResizeColumns="False"
-                       ItemsSource="{Binding Saves}"
-                       SelectedItem="{Binding SelectedSave}"> 
-                <TableView.Columns>
-                    <!-- 2. Added x:DataType to columns so they look inside the row object, not the main ViewModel -->
-                    <!-- (Make sure the xmlns:models path matches where LoadSavesResponse lives!) -->
-                    <TableViewColumn Header="Save ID" Binding="{Binding SaveId}" Width="0"></TableViewColumn>
-                    <TableViewColumn Header="Match Day" Binding="{Binding CurrentMatchDay}"></TableViewColumn>
-                    <TableViewColumn Header="Club Name" Binding="{Binding ClubName}"></TableViewColumn>
-                    <TableViewColumn Header="Budget" Binding="{Binding TransferBudget}"></TableViewColumn>
-                    <TableViewColumn Header="Club ID" Binding="{Binding ClubId}" Width="0"></TableViewColumn>
+    <Grid Background="Beige" RowDefinitions="Auto,*">
 
-                </TableView.Columns>
-                
-            </TableView>
-            
-            
-            <TextBox Text="{Binding ResponseBox}"></TextBox>
+        <Button Grid.Row="0"
+                Classes="BackButton"
+                HorizontalAlignment="Left"
+                Content="⬅️"
+                Command="{Binding ReturnCommand}"/>
+
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Spacing="20"
+                    Width="340">
+
+            <TextBlock Text="Load Game" Classes="PageTitle"/>
+
+            <Border Classes="CardPanel">
+                <TableView Height="220"
+                           CanUserResizeColumns="False"
+                           ItemsSource="{Binding Saves}"
+                           SelectedItem="{Binding SelectedSave}">
+                    <TableView.Columns>
+                        <TableViewColumn Header="Save ID" Binding="{Binding SaveId}" Width="0"/>
+                        <TableViewColumn Header="Match Day" Binding="{Binding CurrentMatchDay}" Width="70"/>
+                        <TableViewColumn Header="Club Name" Binding="{Binding ClubName}" Width="120"/>
+                        <TableViewColumn Header="Budget" Binding="{Binding TransferBudget}" Width="90"/>
+                        <TableViewColumn Header="Club ID" Binding="{Binding ClubId}" Width="0"/>
+                    </TableView.Columns>
+                </TableView>
+            </Border>
+
+            <Border Classes="ResponseBox" IsVisible="{Binding ResponseBox, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                <TextBlock Text="{Binding ResponseBox}" Classes="ResponseText"/>
+            </Border>
+
         </StackPanel>
     </Grid>
 </UserControl>
